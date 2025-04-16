@@ -1,4 +1,6 @@
-import { useNavigate, useRef } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +21,6 @@ import {
   ChevronRight, 
   Star
 } from "lucide-react";
-import { useState } from "react";
 
 const Sponsorship = () => {
   const navigate = useNavigate();
