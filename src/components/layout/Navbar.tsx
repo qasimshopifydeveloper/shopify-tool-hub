@@ -62,15 +62,13 @@ const Navbar = () => {
       return;
     }
     
-    // Here you would normally redirect to a search results page with the query
-    // For now, we'll just show a toast and console log
-    console.log("Searching for:", searchQuery);
-    toast({
-      title: "Search results",
-      description: `Found results for "${searchQuery}"`,
-    });
+    // Redirect to search results page with the query
+    navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     
-    // Reset search
+    // Log the search (for analytics)
+    console.log("Searching for:", searchQuery);
+    
+    // Reset search in navbar
     setSearchQuery("");
     setSearchOpen(false);
   };

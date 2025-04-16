@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -321,7 +320,7 @@ const Tools = () => {
                   <CardDescription>{tool.description}</CardDescription>
                 </CardHeader>
                 <CardFooter className="mt-auto pt-2">
-                  <Button asChild className="w-full">
+                  <Button asChild className="w-full hover:bg-primary/90 text-white transition-colors">
                     <Link to={tool.path}>
                       Start Using Tool
                     </Link>
