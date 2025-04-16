@@ -18,7 +18,20 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+			},
 			colors: {
+				shopify: {
+					green: '#7AB55C',
+					black: '#000000',
+					white: '#FFFFFF',
+					gray: {
+						light: '#F1F1F1',
+						medium: '#8A898C',
+						dark: '#1A1F2C',
+					},
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
