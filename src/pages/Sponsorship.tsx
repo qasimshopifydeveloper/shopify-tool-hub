@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,13 @@ import {
 } from "lucide-react";
 
 const Sponsorship = () => {
+  const navigate = useNavigate();
+
+  const handleSponsorshipApplication = (plan: string) => {
+    // Navigate to the contact page with the selected plan as a query parameter
+    navigate(`/contact?subject=sponsorship&plan=${plan}`);
+  };
+
   return (
     <Layout>
       {/* Banner/Header */}
@@ -48,7 +56,7 @@ const Sponsorship = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-t-4 border-t-primary">
+            <Card className="border-t-4 border-t-primary hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
                   <TrendingUp className="h-6 w-6 text-primary" />
@@ -76,7 +84,7 @@ const Sponsorship = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-t-4 border-t-primary">
+            <Card className="border-t-4 border-t-primary hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-primary" />
@@ -104,7 +112,7 @@ const Sponsorship = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-t-4 border-t-primary">
+            <Card className="border-t-4 border-t-primary hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4">
                   <Eye className="h-6 w-6 text-primary" />
@@ -136,7 +144,7 @@ const Sponsorship = () => {
       </section>
 
       {/* Sponsorship Packages */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 bg-muted" id="sponsorship-packages">
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Sponsorship Packages</h2>
@@ -147,12 +155,13 @@ const Sponsorship = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Basic Package */}
-            <Card className="relative">
+            <Card className="relative hover:shadow-lg transition-shadow">
               <div className="absolute top-0 left-0 right-0 h-2 bg-gray-400 rounded-t-lg"></div>
               <CardHeader className="pb-4">
                 <CardTitle>Basic Listing</CardTitle>
                 <div className="mt-4 flex items-baseline text-gray-900">
-                  <span className="text-4xl font-extrabold tracking-tight">Free</span>
+                  <span className="text-4xl font-extrabold tracking-tight">$49</span>
+                  <span className="ml-1 text-xl font-semibold text-muted-foreground">/month</span>
                 </div>
                 <CardDescription className="mt-4">
                   Perfect for indie developers and small tools.
@@ -175,14 +184,17 @@ const Sponsorship = () => {
                 </ul>
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-gray-400 hover:bg-gray-500">
+                <Button 
+                  className="w-full bg-gray-400 hover:bg-gray-500"
+                  onClick={() => handleSponsorshipApplication('basic')}
+                >
                   Apply Now
                 </Button>
               </CardFooter>
             </Card>
             
             {/* Premium Package */}
-            <Card className="relative border-2 border-primary shadow-lg scale-105 z-10">
+            <Card className="relative border-2 border-primary shadow-lg scale-105 z-10 hover:shadow-xl transition-shadow">
               <div className="absolute top-0 inset-x-0 flex justify-center -translate-y-1/2">
                 <span className="bg-primary text-primary-foreground text-sm font-medium px-4 py-1 rounded-full">
                   Most Popular
@@ -224,14 +236,17 @@ const Sponsorship = () => {
                 </ul>
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full">
+                <Button 
+                  className="w-full hover:bg-primary/80"
+                  onClick={() => handleSponsorshipApplication('premium')}
+                >
                   Apply Now
                 </Button>
               </CardFooter>
             </Card>
             
             {/* Enterprise Package */}
-            <Card className="relative">
+            <Card className="relative hover:shadow-lg transition-shadow">
               <div className="absolute top-0 left-0 right-0 h-2 bg-blue-600 rounded-t-lg"></div>
               <CardHeader className="pb-4">
                 <CardTitle>Enterprise</CardTitle>
@@ -268,7 +283,10 @@ const Sponsorship = () => {
                 </ul>
               </CardContent>
               <CardFooter className="pt-8">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button 
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  onClick={() => handleSponsorshipApplication('enterprise')}
+                >
                   Apply Now
                 </Button>
               </CardFooter>
@@ -288,13 +306,13 @@ const Sponsorship = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-muted">
+            <Card className="bg-muted hover:shadow-lg transition-shadow">
               <CardContent className="pt-10 relative">
                 <div className="absolute top-0 left-8 -translate-y-1/2">
                   <Star className="h-12 w-12 fill-primary text-primary" />
                 </div>
                 <blockquote className="text-lg italic mb-6">
-                  "Since sponsoring with ShopifyTools.com, we've seen a 35% increase in our app installs. The audience is exactly who we want to reach - engaged Shopify merchants looking for solutions."
+                  "Since sponsoring with ShopifieTools.com, we've seen a 35% increase in our app installs. The audience is exactly who we want to reach - engaged Shopify merchants looking for solutions."
                 </blockquote>
                 <div className="flex items-center">
                   <img 
@@ -312,13 +330,13 @@ const Sponsorship = () => {
               </CardContent>
             </Card>
             
-            <Card className="bg-muted">
+            <Card className="bg-muted hover:shadow-lg transition-shadow">
               <CardContent className="pt-10 relative">
                 <div className="absolute top-0 left-8 -translate-y-1/2">
                   <Star className="h-12 w-12 fill-primary text-primary" />
                 </div>
                 <blockquote className="text-lg italic mb-6">
-                  "The quality of leads we get from ShopifyTools.com is outstanding. These are serious Shopify store owners who are actively seeking the type of solution we offer."
+                  "The quality of leads we get from ShopifieTools.com is outstanding. These are serious Shopify store owners who are actively seeking the type of solution we offer."
                 </blockquote>
                 <div className="flex items-center">
                   <img 
@@ -350,9 +368,12 @@ const Sponsorship = () => {
               </p>
             </div>
             
-            <Card>
+            <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="pt-6">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={(e) => {
+                  e.preventDefault();
+                  navigate('/contact?subject=sponsorship');
+                }}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="font-medium">
@@ -391,7 +412,7 @@ const Sponsorship = () => {
                       <option value="" disabled selected>
                         Select a package
                       </option>
-                      <option value="basic">Basic Listing (Free)</option>
+                      <option value="basic">Basic Listing ($49/month)</option>
                       <option value="premium">Premium Placement ($99/month)</option>
                       <option value="enterprise">Enterprise ($299/month)</option>
                       <option value="custom">Custom Package</option>
@@ -421,7 +442,7 @@ const Sponsorship = () => {
                     />
                   </div>
                   
-                  <Button className="w-full" size="lg" type="submit">
+                  <Button className="w-full hover:bg-primary/80" size="lg" type="submit">
                     Submit Application
                   </Button>
                 </form>
@@ -490,9 +511,11 @@ const Sponsorship = () => {
               <p className="text-lg font-medium mb-4">
                 Have another question?
               </p>
-              <Button variant="outline" className="flex items-center mx-auto">
-                Contact Us
-                <ChevronRight className="ml-2 h-5 w-5" />
+              <Button variant="outline" className="flex items-center mx-auto hover:bg-muted" asChild>
+                <a href="/faq">
+                  View FAQ
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </a>
               </Button>
             </div>
           </div>

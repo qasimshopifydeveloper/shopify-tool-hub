@@ -5,18 +5,18 @@ const HowItWorks = () => {
   const steps = [
     {
       icon: ClipboardCheck,
-      title: "Choose a Tool",
-      description: "Browse our collection of tools and select the one that addresses your specific Shopify need.",
+      title: "Browse Our Tools",
+      description: "Explore our collection of online Shopify tools designed to enhance your store without any installation required.",
     },
     {
       icon: Settings,
-      title: "Configure Options",
-      description: "Customize the tool settings to match your specific store requirements.",
+      title: "Use the Tool Online",
+      description: "Simply use our tools directly in your browser - no downloads, no installations, just instant solutions.",
     },
     {
       icon: Zap,
-      title: "Apply to Your Store",
-      description: "Follow the simple instructions to implement the solution in your Shopify store.",
+      title: "Improve Your Store",
+      description: "Apply the results to enhance your Shopify store's performance, appearance, or functionality immediately.",
     },
   ];
 
@@ -28,7 +28,7 @@ const HowItWorks = () => {
             How It Works
           </h2>
           <p className="text-xl text-muted-foreground">
-            Getting started with ShopifyTools.com is quick and easy. Follow these simple steps:
+            Getting started with ShopifieTools.com is quick and easy. All our tools are available online without any installation:
           </p>
         </div>
 

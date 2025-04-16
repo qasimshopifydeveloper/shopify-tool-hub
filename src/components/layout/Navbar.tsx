@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Moon, Sun, Search, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,12 +10,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Theme toggle effect
   useEffect(() => {
@@ -46,6 +49,32 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle search submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!searchQuery.trim()) {
+      toast({
+        title: "Please enter a search term",
+        description: "Enter keywords to search for tools, blog posts, and resources",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Here you would normally redirect to a search results page with the query
+    // For now, we'll just show a toast and console log
+    console.log("Searching for:", searchQuery);
+    toast({
+      title: "Search results",
+      description: `Found results for "${searchQuery}"`,
+    });
+    
+    // Reset search
+    setSearchQuery("");
+    setSearchOpen(false);
+  };
+
   // Navigation links
   const navLinks = [
     { name: "Home", path: "/" },
@@ -54,6 +83,7 @@ const Navbar = () => {
     { name: "Blog", path: "/blog" },
     { name: "Sponsorship", path: "/sponsorship" },
     { name: "Contact", path: "/contact" },
+    { name: "FAQ", path: "/faq" },
   ];
 
   return (
@@ -70,7 +100,7 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 text-xl font-bold text-primary"
         >
-          <span className="text-shopify-green">Shopify</span>
+          <span className="text-shopify-green">Shopifie</span>
           <span>Tools</span>
         </Link>
 
@@ -92,14 +122,17 @@ const Navbar = () => {
           {/* Search */}
           <div className="relative">
             {searchOpen ? (
-              <div className="absolute right-0 top-0 flex items-center">
+              <form onSubmit={handleSearch} className="absolute right-0 top-0 flex items-center">
                 <Input
                   type="search"
                   placeholder="Search..."
                   className="w-[200px] md:w-[300px] pr-8"
                   autoFocus
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <Button
+                  type="button"
                   variant="ghost"
                   size="icon"
                   className="absolute right-0"
@@ -107,7 +140,7 @@ const Navbar = () => {
                 >
                   <X className="h-4 w-4" />
                 </Button>
-              </div>
+              </form>
             ) : (
               <Button
                 variant="ghost"
@@ -141,7 +174,10 @@ const Navbar = () => {
           </DropdownMenu>
 
           {/* CTA Button (desktop only) */}
-          <Button className="hidden sm:inline-flex">
+          <Button 
+            className="hidden sm:inline-flex hover:bg-primary/80" 
+            onClick={() => navigate("/tools")}
+          >
             Explore Tools
           </Button>
 
@@ -175,7 +211,15 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button className="w-full mt-2">Explore Tools</Button>
+            <Button 
+              className="w-full mt-2 hover:bg-primary/80"
+              onClick={() => {
+                navigate("/tools");
+                setMobileMenuOpen(false);
+              }}
+            >
+              Explore Tools
+            </Button>
           </div>
         </nav>
       )}

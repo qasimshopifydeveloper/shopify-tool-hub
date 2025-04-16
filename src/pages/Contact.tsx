@@ -1,8 +1,11 @@
 
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Card,
   CardContent,
@@ -17,10 +20,106 @@ import {
   HelpCircle, 
   MessageSquare, 
   Briefcase, 
-  PenTool 
+  PenTool,
+  Send,
+  Loader2
 } from "lucide-react";
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    subscribeToNewsletter: false
+  });
+
+  const handleContactInputChange = (e) => {
+    const { id, value } = e.target;
+    setContactForm({
+      ...contactForm,
+      [id]: value
+    });
+  };
+
+  const handleCheckboxChange = (checked) => {
+    setContactForm({
+      ...contactForm,
+      subscribeToNewsletter: checked
+    });
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // This would be replaced with your actual API endpoint
+      console.log("Sending contact form to info@shopifietools.com:", contactForm);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Message sent!",
+        description: "We've received your message and will get back to you soon.",
+      });
+      
+      // Reset form
+      setContactForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        subscribeToNewsletter: false
+      });
+      
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    
+    try {
+      // This would be replaced with your actual newsletter API endpoint
+      console.log("Subscribing to newsletter:", newsletterEmail);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Subscribed!",
+        description: "You've been successfully subscribed to our newsletter.",
+      });
+      
+      setNewsletterEmail("");
+      
+    } catch (error) {
+      console.error("Error subscribing to newsletter:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem subscribing you. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <Layout>
       {/* Header Banner */}
@@ -31,7 +130,7 @@ const Contact = () => {
               Get in Touch
             </h1>
             <p className="text-xl text-muted-foreground">
-              Have questions, feedback, or need support? We're here to help you make the most of ShopifyTools.com.
+              Have questions, feedback, or need support? We're here to help you make the most of ShopifieTools.com.
             </p>
           </div>
         </div>
@@ -51,7 +150,7 @@ const Contact = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={handleContactSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label htmlFor="name" className="font-medium">
@@ -61,6 +160,8 @@ const Contact = () => {
                           id="name" 
                           placeholder="John Smith" 
                           required 
+                          value={contactForm.name}
+                          onChange={handleContactInputChange}
                         />
                       </div>
                       
@@ -73,6 +174,8 @@ const Contact = () => {
                           type="email" 
                           placeholder="john@example.com" 
                           required 
+                          value={contactForm.email}
+                          onChange={handleContactInputChange}
                         />
                       </div>
                     </div>
@@ -84,8 +187,11 @@ const Contact = () => {
                       <select 
                         id="subject" 
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        value={contactForm.subject}
+                        onChange={handleContactInputChange}
+                        required
                       >
-                        <option value="" disabled selected>
+                        <option value="" disabled>
                           Select a subject
                         </option>
                         <option value="general">General Inquiry</option>
@@ -106,11 +212,37 @@ const Contact = () => {
                         placeholder="How can we help you?"
                         rows={6}
                         required
+                        value={contactForm.message}
+                        onChange={handleContactInputChange}
                       />
                     </div>
                     
-                    <Button className="w-full" size="lg" type="submit">
-                      Send Message
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="newsletter" 
+                        checked={contactForm.subscribeToNewsletter}
+                        onCheckedChange={handleCheckboxChange}
+                      />
+                      <label
+                        htmlFor="newsletter"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Subscribe to our newsletter for Shopify tips and new tools
+                      </label>
+                    </div>
+                    
+                    <Button className="w-full" size="lg" type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
@@ -129,7 +261,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-semibold">Email</h3>
-                        <p className="text-muted-foreground">support@shopifytools.com</p>
+                        <p className="text-muted-foreground">info@shopifietools.com</p>
                         <p className="text-sm text-muted-foreground mt-1">
                           We typically respond within 24 hours.
                         </p>
@@ -150,6 +282,46 @@ const Contact = () => {
                     </div>
                   </div>
                 </div>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Subscribe to Our Newsletter</CardTitle>
+                    <CardDescription>
+                      Get the latest Shopify tips, tool updates, and exclusive offers.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+                      <div className="space-y-2">
+                        <label htmlFor="newsletter-email" className="font-medium">
+                          Email Address
+                        </label>
+                        <Input
+                          id="newsletter-email"
+                          type="email"
+                          placeholder="your@email.com"
+                          required
+                          value={newsletterEmail}
+                          onChange={(e) => setNewsletterEmail(e.target.value)}
+                        />
+                      </div>
+                      <Button 
+                        type="submit" 
+                        className="w-full"
+                        disabled={isSubscribing}
+                      >
+                        {isSubscribing ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Subscribing...
+                          </>
+                        ) : (
+                          "Subscribe"
+                        )}
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
                 
                 <Card>
                   <CardHeader>
@@ -217,8 +389,8 @@ const Contact = () => {
                     <p className="mb-4 opacity-90">
                       Check our FAQ section for answers to common questions.
                     </p>
-                    <Button variant="secondary" className="w-full text-primary">
-                      View FAQ
+                    <Button variant="secondary" className="w-full text-primary" asChild>
+                      <a href="/faq">View FAQ</a>
                     </Button>
                   </CardContent>
                 </Card>
@@ -228,7 +400,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map and Location */}
+      {/* Connect With Us */}
       <section className="py-16 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12">

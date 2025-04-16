@@ -19,6 +19,7 @@ const Footer = () => {
       links: [
         { name: "Tools", path: "/tools" },
         { name: "Sponsorship", path: "/sponsorship" },
+        { name: "FAQ", path: "/faq" },
       ],
     },
     {
@@ -48,7 +49,7 @@ const Footer = () => {
               to="/"
               className="flex items-center space-x-2 text-xl font-bold text-primary mb-4"
             >
-              <span className="text-shopify-green">Shopify</span>
+              <span className="text-shopify-green">Shopifie</span>
               <span>Tools</span>
             </Link>
             <p className="text-muted-foreground mb-4">
@@ -87,7 +88,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            &copy; {currentYear} ShopifyTools.com. All rights reserved.
+            &copy; {currentYear} ShopifieTools.com. All rights reserved.
           </p>
           <p className="text-muted-foreground text-sm">
             Created by a certified Shopify developer
