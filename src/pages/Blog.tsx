@@ -217,11 +217,13 @@ const Blog = () => {
                   <Card key={post.id} className="overflow-hidden">
                     <div className="flex flex-col md:flex-row h-full">
                       <div className="md:w-1/3 h-48 md:h-auto relative">
-                        <img 
-                          src={post.thumbnailUrl} 
-                          alt={post.title} 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link to={`/blog/${post.slug}`}>
+                          <img 
+                            src={post.thumbnailUrl} 
+                            alt={post.title} 
+                            className="w-full h-full object-cover"
+                          />
+                        </Link>
                       </div>
                       <div className="md:w-2/3 flex flex-col">
                         <CardHeader>
@@ -333,11 +335,13 @@ const Blog = () => {
                       .slice(0, 3)
                       .map((post) => (
                         <div key={post.id} className="flex gap-3">
-                          <img 
-                            src={post.thumbnailUrl} 
-                            alt={post.title} 
-                            className="w-16 h-16 object-cover rounded-md"
-                          />
+                          <Link to={`/blog/${post.slug}`}>
+                            <img 
+                              src={post.thumbnailUrl} 
+                              alt={post.title} 
+                              className="w-16 h-16 object-cover rounded-md"
+                            />
+                          </Link>
                           <div className="flex flex-col">
                             <Link 
                               to={`/blog/${post.slug}`} 
