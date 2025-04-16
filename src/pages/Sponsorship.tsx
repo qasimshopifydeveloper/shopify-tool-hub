@@ -1,5 +1,4 @@
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRef } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,13 +19,22 @@ import {
   ChevronRight, 
   Star
 } from "lucide-react";
+import { useState } from "react";
 
 const Sponsorship = () => {
   const navigate = useNavigate();
+  const [selectedPackage, setSelectedPackage] = useState("");
+  const applicationFormRef = useRef<HTMLDivElement>(null);
 
   const handleSponsorshipApplication = (plan: string) => {
-    // Navigate to the contact page with the selected plan as a query parameter
-    navigate(`/contact?subject=sponsorship&plan=${plan}`);
+    setSelectedPackage(plan);
+    
+    if (applicationFormRef.current) {
+      applicationFormRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   return (
@@ -358,7 +366,7 @@ const Sponsorship = () => {
       </section>
 
       {/* Apply to Sponsor */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 bg-muted" ref={applicationFormRef}>
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
@@ -408,8 +416,13 @@ const Sponsorship = () => {
                     <label htmlFor="package" className="font-medium">
                       Sponsorship Package
                     </label>
-                    <select id="package" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                      <option value="" disabled selected>
+                    <select 
+                      id="package" 
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      value={selectedPackage}
+                      onChange={(e) => setSelectedPackage(e.target.value)}
+                    >
+                      <option value="" disabled>
                         Select a package
                       </option>
                       <option value="basic">Basic Listing ($49/month)</option>
