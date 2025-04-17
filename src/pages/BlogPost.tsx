@@ -406,7 +406,7 @@ app.post('/api/products/tag', async (req, res) => {
   try {
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
     const response = await client.put({
-      path: `products/${productId}`,
+      path: \`products/\${productId}\`,
       data: { product: { id: productId, tags } },
     });
     
@@ -482,7 +482,7 @@ function ProductList() {
                 source={product.image ? product.image.src : ''}
               />
             }
-            accessibilityLabel={`View details for ${product.title}`}
+            accessibilityLabel={\`View details for \${product.title}\`}
             name={<TextStyle variation="strong">{product.title}</TextStyle>}
             secondaryActions={[
               {
