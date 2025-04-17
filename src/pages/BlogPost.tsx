@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Calendar, Clock, ArrowLeft, Tag, User } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Tag, User, ArrowRight } from "lucide-react";
 
 // Blog post type definition
 interface BlogPost {
@@ -848,8 +848,7 @@ export default ProductList;
                       </Button>
                     </CardFooter>
                   </Card>
-                ))
-              }
+                ))}
             </div>
           </div>
         </div>
